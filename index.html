@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <style>
+        body{
+            text-align: center;
+            font-size: 10px;
+            background-color: beige;
+            font-style: inherit;
+            
+            
+        }
+        .weatherCard {
+        
+            font-style: italic;
+            text-align: center;
+           color: black;
+            margin-top: 20px;
+            width: 20%;
+            height: auto;
+            border-radius: 30px;
+            padding: 10px;
+            background-color: rgb(92, 92, 60);
+        }
+        .weatherCard1{
+            font-style: italic;
+            display:inline-block ;
+            height: 30%;
+            width: 20%;
+           color: black;
+            margin-top: 30px;
+            border-radius: 30px;
+            padding: 15px;
+            background-color: rgb(92, 92, 60);;
+        }
+
+        .weatherCard2{
+            font-style: italic;
+            display:inline-block;
+            text-align: center;
+            height: 50%;
+            width: 20%;
+            color: black;
+            margin-top: 30px;
+            border-radius: 30px;
+            padding: 15px;
+            background-color: rgb(92, 92, 60);;
+        }
+        .weatherCard3{
+            font-style: italic;
+            display:inline-block;
+            text-align: center;
+            height: 50%;
+            width: 20%;
+            color: black;
+            margin-top: 30px;
+            border-radius: 30px;
+            padding: 15px;
+            background-color: rgb(92, 92, 60);;
+        }
+        .weatherCard4{
+            font-style: italic;
+             display:inline-block;
+            text-align: center;
+            height: 50%;
+            width: 20%;
+            color: black;
+            margin-top: 30px;
+            border-radius: 30px;
+            padding: 15px;
+            background-color: rgb(92, 92, 60);;
+
+        }
+
+        .button{
+            border: 3px solid rgb(92, 92, 60);;
+            border-radius: 20px;
+
+        }
+    </style>
+
+</head>
+
+<body >
+    <h1 style="color: rgb(65, 65, 65);"><u> Weather App</u></h1>
+
+
+    <form onsubmit="submitFunction(); return false">
+        <h3 style="color: rgb(242, 234, 182);"> <input class="button" type="text" id="cityName" required>
+        <br>
+        <button style="border: 5px solid rgb(197, 197, 224); border-radius: 25px ";>Search</button>
+    </form>
+    <p id="current"></p>
+<!-- <center>
+    <div class="weatherCard">
+        <h3 id="upResult"></h3>
+        <h1 id="result"></h1>
+        <h2 id="isresult"></h2>
+        <p id="leftResult"></p>
+        <p id="rightResult"></p>
+        <span id="downResult"></span>
+    </center>
+
+    </div> -->
+    <!-- <div class="weatherCard1">
+    <h3 id="upEqual"></h3>
+    <h1 id="equal"></h1>
+    <span id="isequal"></span>
+    <br><p id="leftEqual"></p>
+    <p id="rightEqual"></p>
+    <span id="downEqual"></span>
+</div> -->
+
+
+
+<!-- </div>
+<div class="weatherCard2">
+<h3 id="upCal"></h3>
+<h1 id="cal"></h1>
+<span id="iscal"></span>
+<br><p id="leftCal"></p>
+<p id="rightCal"></p>
+<span id="downCal"></span>
+</div> -->
+
+
+
+<!-- </div>
+<div class="weatherCard3">
+<h3 id="upClass"></h3>
+<h1 id="class"></h1>
+<span id="isclass"></span>
+<br><p id="leftClass"></p>
+<p id="rightClass"></p>
+<span id="downClass"></span>
+</div> -->
+
+
+
+<!-- </div>
+<div class="weatherCard4">
+<h3 id="upCode"></h3>
+<h1 id="code"></h1>
+<span id="iscode"></span>
+<br><p id="leftCode"></p>
+<p id="rightCode"></p>
+<span id="downCode"></span>
+</div> -->
+
+
+
+    <script>
+        let formatedTime = moment("2022-09-12 18:00:00").format("ddd ha");
+        console.log(formatedTime);
+
+        function submitFunction() {
+            let cityName = document.querySelector("#cityName").value
+
+            axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=c0342e5a00f1047c8f804cedd3b0844a&units=metric`)
+                .then(function (response) {
+                    console.log(response.data);
+
+                    document.querySelector("#current").innerHTML +=
+                    `<center>
+                    <div class="weatherCard">
+                    <h3 id="upResult"></h3>
+                    <h1 id="result"></h1>
+                    <h2 id="isresult"></h2>
+                    <p id="leftResult"></p>
+                    <p id="rightResult"></p>
+                    <span id="downResult"></span>
+                    </center>`
+                   
+                    document.querySelector("#result").innerHTML =`<u>
+                        ${response.data.main.temp}°C`;
+                    document.querySelector("#upResult").innerHTML =
+                        response.data.name;
+                    document.querySelector("#leftResult").innerHTML =
+                    ` Wind: ${response.data.wind.speed} m/s`;
+                    
+                    document.querySelector("#rightResult").innerHTML =
+                    ` Humidity ${response.data.main.humidity}%`; 
+
+                    document.querySelector("#downResult").innerHTML =
+                        `
+                         ${response.data.main.temp_min}°C - 
+                         
+                          ${response.data.main.temp_max}°C `;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+
+/////////////////////////////////////////////////////
+
+                axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c0342e5a00f1047c8f804cedd3b0844a&units=metric`)
+
+
+                .then(function (response) {
+                    console.log(response.data);
+
+                    document.querySelector("#current").innerHTML += `<div class="weatherCard1">
+                    <h3 id="upEqual"></h3>
+                    <h1 id="equal"></h1>
+                    <span id="isequal"></span>
+                    <br><p id="leftEqual"></p>
+                    <p id="rightEqual"></p>
+                    <span id="downEqual"></span>
+                </div>`
+                
+                    
+                        document.querySelector("#equal").innerHTML =
+                        `<u>${response.data.list[1].main.temp}°C`
+
+
+                        document.querySelector("#downEqual").innerHTML =
+
+                        `
+                         ${response.data.list[1].main.temp_min}°C - 
+                         
+                         ${response.data.list[1].main.temp_max}°C `;
+
+
+                        document.querySelector("#leftEqual").innerHTML =
+
+                        `Wind:
+                         ${response.data.list[1].wind.speed} m/s `; 
+
+
+                         document.querySelector("#rightEqual").innerHTML =
+
+                         `Humidity:
+                         ${response.data.list[1].main.humidity}°C `; 
+
+
+                         document.querySelector("#upEqual").innerHTML =
+                        response.data.city.name;
+
+
+                        document.querySelector("#isequal").innerHTML =
+                        response.data.list[1].dt_txt;
+                      }
+                    
+
+                )
+                    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c0342e5a00f1047c8f804cedd3b0844a&units=metric`)
+
+
+                    .then(function (response) {
+                    console.log(response.data);
+
+                    document.querySelector("#current").innerHTML += `</div>
+                    <div class="weatherCard2">
+                    <h3 id="upCal"></h3>
+                    <h1 id="cal"></h1>
+                    <span id="iscal"></span>
+                    <br><p id="leftCal"></p>
+                    <p id="rightCal"></p>
+                    <span id="downCal"></span>
+                    </div>`
+                
+
+                        document.querySelector("#cal").innerHTML =
+                        `<u>${response.data.list[2].main.temp}°C`
+
+
+                        document.querySelector("#downCal").innerHTML =
+
+                        `
+                         ${response.data.list[2].main.temp_min}°C - 
+                         
+                         ${response.data.list[2].main.temp_max}°C `;
+
+
+                        document.querySelector("#leftCal").innerHTML =
+
+                        `Wind:
+                         ${response.data.list[2].wind.speed} m/s `; 
+
+
+                         document.querySelector("#rightCal").innerHTML =
+
+                         `Humidity:
+                         ${response.data.list[2].main.humidity}°C `; 
+
+
+                         document.querySelector("#upCal").innerHTML =
+                        response.data.city.name;
+
+
+                        document.querySelector("#iscal").innerHTML =
+                        response.data.list[2].dt_txt;
+                    }
+                    )
+            ///////////////////////////////////////////
+
+
+                    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c0342e5a00f1047c8f804cedd3b0844a&units=metric`)
+
+
+.then(function (response) {
+console.log(response.data);
+
+    document.querySelector("#current").innerHTML += `</div>
+            <div class="weatherCard3">
+            <h3 id="upClass"></h3>
+            <h1 id="class"></h1>
+            <span id="isclass"></span>
+            <br><p id="leftClass"></p>
+            <p id="rightClass"></p>
+            <span id="downClass"></span>
+            </div>`
+
+
+    document.querySelector("#class").innerHTML =
+    `<u>${response.data.list[3].main.temp}°C`
+
+
+    document.querySelector("#downClass").innerHTML =
+
+    `
+     ${response.data.list[3].main.temp_min}°C - 
+     
+     ${response.data.list[3].main.temp_max}°C `;
+
+
+    document.querySelector("#leftClass").innerHTML =
+
+    `Wind:
+     ${response.data.list[3].wind.speed} m/s`; 
+
+
+     document.querySelector("#rightClass").innerHTML =
+
+     `Humidity:
+     ${response.data.list[3].main.humidity}°C `; 
+
+
+     document.querySelector("#upClass").innerHTML =
+    response.data.city.name;
+
+
+    document.querySelector("#isclass").innerHTML =
+    response.data.list[3].dt_txt;
+
+            })
+
+
+
+            axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c0342e5a00f1047c8f804cedd3b0844a&units=metric`)
+
+
+.then(function (response) {
+console.log(response.data);
+
+    document.querySelector("#current").innerHTML += `</div>
+        <div class="weatherCard4">
+        <h3 id="upCode"></h3>
+        <h1 id="code"></h1>
+        <span id="iscode"></span>
+        <br><p id="leftCode"></p>
+        <p id="rightCode"></p>
+        <span id="downCode"></span>
+        </div>`
+
+    document.querySelector("#code").innerHTML =
+    `<u>${response.data.list[4].main.temp}°C`
+
+
+    document.querySelector("#downCode").innerHTML =
+
+    `
+     ${response.data.list[4].main.temp_min}°C - 
+     
+     ${response.data.list[4].main.temp_max}°C `;
+
+
+    document.querySelector("#leftCode").innerHTML =
+
+    `Wind:
+     ${response.data.list[4].wind.speed} m/s `; 
+
+
+     document.querySelector("#rightCode").innerHTML =
+
+     `Humidity:
+     ${response.data.list[4].main.humidity}°C `; 
+
+
+     document.querySelector("#upCode").innerHTML =
+    response.data.city.name;
+
+
+    document.querySelector("#iscode").innerHTML =
+    response.data.list[4].dt_txt;
+
+})
+
+
+        
+                .catch(function (error) {
+                    console.log(error);
+                })
+
+            }    
+
+        
+    </script>
+</body>
+
+</html>
